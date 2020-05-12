@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Derek B. Greer</Authors>
+    <AssemblyTitle>PipeFilters.Autofac</AssemblyTitle>
+    <Description>Autofac adaptor for the PipeFilters library</Description>
+    <PackageTags>pipelines</PackageTags>
+    <PackageProjectUrl>https://https://github.com/derekgreer/pipe-filters</PackageProjectUrl>
+    <PackageLicense>MIT</PackageLicense>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/derekgreer/pipe-filters</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PipeFilters\PipeFilters.csproj" />
+  </ItemGroup>
+
+</Project>

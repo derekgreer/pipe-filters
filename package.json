@@ -1,0 +1,57 @@
+{
+  "name": "pipe-filters",
+  "projectName": "PipeFilters",
+  "version": "0.0.1",
+  "configuration": "Release",
+  "description": "A pipes and filters pattern library",
+  "dotnetPath": "\"c:/Program Files/dotnet/dotnet.exe\"",
+  "publishSource": "https://www.nuget.org/api/v2/package",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/derekgreer/pipe-filters.git"
+  },
+  "scripts": {
+    "env": "printenv",
+    "clean": "rimraf dist build",
+    "prebuild": "npm run clean",
+    "build": "npm-run-all build:restore build:compile test package",
+    "build:restore": "cross-env-shell globstar -- ${npm_package_dotnetPath} restore \"**/*.sln\" /p:Version=${npm_package_version}",
+    "build:compile": "cross-env-shell globstar -- ${npm_package_dotnetPath} build \"**/*.sln\" --configuration ${npm_package_configuration} /p:Version=${npm_package_version}",
+    "prebuild:pre-release": "npm run clean",
+    "build:pre-release": "npm-run-all build:pre-release:restore build:pre-release:compile test package:pre-release",
+    "build:pre-release:restore": "cross-env globstar -- ${npm_package_dotnetPath} restore \"**/*.sln\" /p:Version=${PreReleaseVersion}",
+    "build:pre-release:compile": "cross-env globstar -- ${npm_package_dotnetPath} build \"**/*.sln\" --configuration ${npm_package_configuration} /p:Version=${PreReleaseVersion}",
+    "test": "cross-env-shell globstar -- ${npm_package_dotnetPath} test \"src/**/${npm_package_projectName}.Specs/*.csproj --no-build --configuration ${npm_package_configuration}",
+    "package": "npm-run-all package:release:*",
+    "package:release:pipe-filters": "cross-env-shell globstar -- ${npm_package_dotnetPath} pack \"./src/**/${npm_package_projectName}.csproj\" -c ${npm_package_configuration} --no-build -o dist --include-symbols /p:Version=${npm_package_version}",
+    "package:release:pipe-filters-autofac": "cross-env-shell globstar -- ${npm_package_dotnetPath} pack \"./src/**/${npm_package_projectName}.Autofac.csproj\" -c ${npm_package_configuration} --no-build -o dist --include-symbols /p:Version=${npm_package_version}",
+    "package:pre-release": "npm-run-all package:pre-release:*",
+    "package:pre-release:pipe-filters": "cross-env-shell globstar -- ${npm_package_dotnetPath} pack --version-suffix ${VersionSuffix} \"./src/**/${npm_package_projectName}.csproj\" -c ${npm_package_configuration} --no-build -o dist --include-symbols -p:VersionPrefix=${PreReleaseVersion}",
+    "package:pre-release:pipe-filters-autofac": "cross-env-shell globstar -- ${npm_package_dotnetPath} pack --version-suffix ${VersionSuffix} \"./src/**/${npm_package_projectName}.Autofac.csproj\" -c ${npm_package_configuration} --no-build -o dist --include-symbols -p:VersionPrefix=${PreReleaseVersion}",
+    "publish": "cross-env-shell globstar -- ${npm_package_dotnetPath} nuget push dist/${npm_package_name}.${npm_package_version}.nupkg --source ${npm_package_publishSource}",
+    "publish:local": "cross-env-shell copyfiles --flat --error dist/*.nupkg ${APPDATA}/Packages/"
+  },
+  "keywords": [
+    "pipe-filters",
+    "pipes and filters"
+  ],
+  "author": "Derek B. Greer",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "copyfiles": "^2.2.0",
+    "cross-env": "^7.0.2",
+    "cross-run": "^1.0.1",
+    "download-cli": "^1.1.1",
+    "extend": "^3.0.2",
+    "globstar": "^1.0.0",
+    "minimist": "^1.2.5",
+    "mkdirp": "^1.0.4",
+    "npm-run-all": "^4.1.5",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "rimraf": "^3.0.2",
+    "tmp": "^0.2.1",
+    "which": "^2.0.2"
+  }
+}
