@@ -9,7 +9,7 @@ IF "%NPM_AVAILABLE%" NEQ "0" (
 )
 
 :build
-call npm install
+call npm ci
 call npm run build
 IF "%ERRORLEVEL%" NEQ "0" (
   ECHO The npm build failed with return code %ERRORLEVEL%.
