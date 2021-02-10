@@ -1,2 +1,2 @@
-# pipelines
-A pipeline library
+# pipe-filters
+A pipes and filters library.
